@@ -1,8 +1,3 @@
-
-export default function CompletedTasks(){
-    return (
-        <div>
-            Completed tasks 
-        </div>
-    )
+export default function CompletedTasks() {
+  return <div>Completed tasks</div>;
 }

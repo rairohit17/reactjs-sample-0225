@@ -1,8 +1,3 @@
-
-export default function ImportantTasks(){
-    return (
-        <div>
-            important
-        </div>
-    )
+export default function ImportantTasks() {
+  return <div>important</div>;
 }

@@ -1,35 +1,43 @@
-import { useState } from 'react'
-import "./index.css"
-import Header from './components/Header'
-import ActionArea from "./components/ActionArea"
-import { BrowserRouter as Router , Routes, Route } from 'react-router-dom'
-import AllTasks from './components/AllTasks'
-import ImportantTasks from './components/ImportantTasks'
-import CompletedTasks from './components/CompletedTasks'
-import IncompleteTasks from './components/IncompleteTasks'
-function App() {
-  const [count, setCount] = useState(0)
+import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import './index.css';
+import Header from './components/Header';
+import ActionArea from './components/ActionArea';
+import AllTasks from './components/AllTasks';
+import ImportantTasks from './components/ImportantTasks';
+import CompletedTasks from './components/CompletedTasks';
+import IncompleteTasks from './components/IncompleteTasks';
+import SignupPage from './components/Signup';
+import LoginPage from './components/Login';
+
+function Layout() {
+  const location = useLocation();
 
   return (
-   <div  className='text-white'>
-    <Header></Header>
-    <Router>
+    <div className="text-white">
+      {/* Render Header only if the route is NOT '/signup' */}
+      {(location.pathname !== '/signup' && location.pathname !== '/login') && <Header />}
+
       <Routes>
-        <Route   path = "/" element={<ActionArea/>}>
-        <Route index element={<AllTasks></AllTasks>} ></Route>
-        <Route path="/importantTasks" element={<ImportantTasks></ImportantTasks>} ></Route>
-        <Route path="/completedTasks" element={<CompletedTasks></CompletedTasks>} ></Route>
-        <Route path="/incompleteTasks" element={<IncompleteTasks></IncompleteTasks>} ></Route>
-
+        <Route path="/" element={<ActionArea />}>
+          <Route index element={<AllTasks />} />
+          <Route path="/importantTasks" element={<ImportantTasks />} />
+          <Route path="/completedTasks" element={<CompletedTasks />} />
+          <Route path="/incompleteTasks" element={<IncompleteTasks />} />
         </Route>
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/login" element={<LoginPage />} />
       </Routes>
-    
-    
-   
-
-   </Router>
-   </div>
-  )
+    </div>
+  );
 }
 
-export default App
+function App() {
+  return (
+    <Router>
+      <Layout />
+    </Router>
+  );
+}
+
+export default App;

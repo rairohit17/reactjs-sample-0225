@@ -1,8 +1,3 @@
-
-export default function IncompleteTasks(){
-    return (
-        <div>
-            incomplete
-        </div>
-    )
+export default function IncompleteTasks() {
+  return <div>incomplete</div>;
 }
