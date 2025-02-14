@@ -1,5 +1,10 @@
 import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from 'react-router-dom';
 import './index.css';
 import Header from './components/Header';
 import ActionArea from './components/ActionArea';
@@ -16,7 +21,9 @@ function Layout() {
   return (
     <div className="text-white">
       {/* Render Header only if the route is NOT '/signup' */}
-      {(location.pathname !== '/signup' && location.pathname !== '/login') && <Header />}
+      {location.pathname !== '/signup' && location.pathname !== '/login' && (
+        <Header />
+      )}
 
       <Routes>
         <Route path="/" element={<ActionArea />}>
