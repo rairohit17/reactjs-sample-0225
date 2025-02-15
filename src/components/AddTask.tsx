@@ -11,86 +11,79 @@ import {
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { IoIosAddCircleOutline } from 'react-icons/io';
-import { useState,useRef } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {jwtDecode} from "jwt-decode"
+import { jwtDecode } from 'jwt-decode';
 import { createTask } from '../utils/DatabaseOperations';
 import { Task } from '../utils/Task.schema';
-import {toast, ToastContainer} from "react-toastify"
+import { toast, ToastContainer } from 'react-toastify';
 import { firebaseErrorMessages } from '../utils/FirebaseErrors';
 
 export default function AddTask() {
-  const navigate = useNavigate()
-  const [task, setTask] = useState("")
-  const [description, setDescription] = useState("")
-  const dialogRef = useRef<HTMLButtonElement>(null);
+  const navigate = useNavigate();
+  const [task, setTask] = useState('');
+  const [description, setDescription] = useState('');
+  
 
-  function handleSubmit(){
-    const authToken  = localStorage.getItem("authToken");
-    if (!authToken) navigate("/login") // log in again if no auth tOken 
-    console.log("userEmail")
-    const decodedToken = jwtDecode<any>(authToken as string)
+  function handleSubmit() {
+    const authToken = localStorage.getItem('authToken');
+    if (!authToken) navigate('/login'); // log in again if no auth tOken
+    console.log('userEmail');
+    const decodedToken = jwtDecode<any>(authToken as string);
     const userEmail = decodedToken.email;
-    const newTask :Task = {
+    const newTask: Task = {
       userEmail,
-      todo:task,
+      todo: task,
       description,
-      type:"not_important", 
-      status:"not_started",
-      date:Date.now()
+      type: 'not_important',
+      status: 'not_started',
+      date: Date.now(),
+    };
+    try {
+      createTask(newTask)
+        .then((res) => {
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+          toast.success(' task added successfully ', {
+            position: 'top-center',
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            style: {
+              backgroundColor: '#2d3748',
+              color: '#e2e8f0',
+            },
+          });
+        })
+        .catch((err) => {
+          console.log(err.message);
+          const message =
+            firebaseErrorMessages[err.code as string] || 'error adding task ';
+          toast.warn(message, {
+            position: 'top-center',
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            style: {
+              backgroundColor: '#2d3748',
+              color: '#e2e8f0',
+            },
+          });
+        });
+    } catch (error: any) {
+      console.log(error.message);
+      throw error;
     }
-    try{
-       createTask(newTask)
-       .then((res)=>{
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
-        toast.success(' task added successfully ', {
-                  position: 'top-center',
-                  autoClose: 1000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  style: {
-                    backgroundColor: '#2d3748',
-                    color: '#e2e8f0',
-                  },
-                });
-        
-       } ).catch((err) => {
-               console.log(err.message);
-               const message =
-                 firebaseErrorMessages[err.code as string] ||
-                 'error adding task ';
-               toast.warn(message, {
-                 position: 'top-center',
-                 autoClose: 2000,
-                 hideProgressBar: false,
-                 closeOnClick: true,
-                 pauseOnHover: true,
-                 style: {
-                   backgroundColor: '#2d3748',
-                   color: '#e2e8f0',
-                 },
-               });
-             });
-    }catch(error:any){
-      console.log(error.message)
-      throw error
-
-    }
-
-
-
   }
-
-    
 
   return (
     <Dialog>
-      <ToastContainer/>
+      <ToastContainer />
       <DialogTrigger asChild>
-        <IoIosAddCircleOutline  className="sm:text-3xl text-xl cursor-pointer" />
+        <IoIosAddCircleOutline className="sm:text-3xl text-xl cursor-pointer" />
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] max-w-[250px] bg-inherit">
         <DialogHeader>
@@ -109,7 +102,8 @@ export default function AddTask() {
             >
               Title
             </Label>
-            <Input  onChange={(e)=>setTask(e.target.value)}
+            <Input
+              onChange={(e) => setTask(e.target.value)}
               id="title"
               placeholder="enter task"
               className="sm:col-span-3 col-span-5  text-gray-400"
@@ -122,7 +116,8 @@ export default function AddTask() {
             >
               Description
             </Label>
-            <Input onChange={(e)=>setDescription(e.target.value)}
+            <Input
+              onChange={(e) => setDescription(e.target.value)}
               id="description"
               placeholder="enter description"
               className="sm:col-span-3 col-span-5 text-gray-400 "
@@ -130,7 +125,9 @@ export default function AddTask() {
           </div>
         </div>
         <DialogFooter>
-          <Button onClick={handleSubmit} type="submit">Add Task</Button>
+          <Button onClick={handleSubmit} type="submit">
+            Add Task
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

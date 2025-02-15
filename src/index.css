@@ -79,8 +79,8 @@ body {
   }
 
   /* Hide scrollbar for IE, Edge and Firefox */
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 /* Alternatively, if you want to keep the main page scrollbar and only hide it for specific elements,
@@ -93,8 +93,8 @@ body {
   }
 
   /* Hide scrollbar for IE, Edge and Firefox */
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 /* If you're using Tailwind CSS, you can add this utility class */
@@ -107,6 +107,4 @@ body {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-
 }
-

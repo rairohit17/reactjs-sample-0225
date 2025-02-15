@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Card,
   CardHeader,
@@ -6,21 +6,20 @@ import {
   CardDescription,
   CardContent,
   CardFooter,
-} from './ui/card';
-import { Input } from './/ui/input';
-import { Button } from './ui/button';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { useState } from 'react';
+} from '../components/ui/card';
+import { Input } from '../components/ui/input';
+import { Button } from '../components/ui/button';
 import { toast, ToastContainer } from 'react-toastify';
-import { auth, db, firebaseApp } from '../firebase.config';
+import { auth } from '../firebase.config';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { firebaseErrorMessages } from '../utils/FirebaseErrors';
-const SignupPage = () => {
+
+const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confPass, setConfPass] = useState('');
 
   function handleSubmit() {
-    if (!email || !password || !confPass) {
+    if (!email || !password) {
       toast.warn(' enter all the input fields ', {
         position: 'top-center',
         autoClose: 2000,
@@ -34,23 +33,9 @@ const SignupPage = () => {
       });
       return;
     }
-    if (password != confPass) {
-      toast.warn(' both passwords did not matched  ', {
-        position: 'top-center',
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        style: {
-          backgroundColor: '#2d3748',
-          color: '#e2e8f0',
-        },
-      });
-      return;
-    }
-    createUserWithEmailAndPassword(auth, email, password)
+    signInWithEmailAndPassword(auth, email, password)
       .then((res) => {
-        toast.success(' Sign up successful ', {
+        toast.success(' Login successful ', {
           position: 'top-center',
           autoClose: 2000,
           hideProgressBar: false,
@@ -63,7 +48,7 @@ const SignupPage = () => {
         });
         const user = res.user;
         user.getIdToken().then((idToken) => {
-          localStorage.setItem('authToken', idToken); // Store the ID Token
+          localStorage.setItem('authToken', idToken);
         });
         window.location.href = '/';
       })
@@ -91,10 +76,10 @@ const SignupPage = () => {
       <Card className="w-[90%] sm:w-full max-w-sm bg-slate-900 text-white">
         <CardHeader className="space-y-1 p-4 sm:p-6">
           <CardTitle className="text-xl sm:text-2xl font-bold text-center">
-            Sign up
+            Login
           </CardTitle>
           <CardDescription className="text-sm text-gray-400 text-center">
-            Create an account to get started
+            Log into your account
           </CardDescription>
         </CardHeader>
         <CardContent className="p-4 sm:p-6">
@@ -111,25 +96,27 @@ const SignupPage = () => {
               placeholder="Password"
               className="h-9 sm:h-10 text-sm bg-slate-800 border-slate-700 text-white placeholder:text-gray-400"
             />
-            <Input
-              onChange={(e) => setConfPass(e.target.value)}
-              type="password"
-              placeholder="Confirm Password"
-              className="h-9 sm:h-10 text-sm bg-slate-800 border-slate-700 text-white placeholder:text-gray-400"
-            />
           </form>
         </CardContent>
         <CardFooter className="p-4 sm:p-6">
-          <Button
-            onClick={handleSubmit}
-            className="w-full h-9 sm:h-10 text-sm bg-blue-600 hover:bg-blue-700 text-white"
-          >
-            Create Account
-          </Button>
+          <div className="flex-col gap-2 w-full">
+            <Button
+              onClick={handleSubmit}
+              className="w-full h-9 sm:h-10 text-sm bg-blue-600  hover:bg-blue-700 text-white"
+            >
+              Login
+            </Button>
+            <Button
+              onClick={() => (window.location.href = '/signup')}
+              className="w-full h-9 sm:h-10 text-sm bg-blue-600 mt-3 hover:bg-blue-700 text-white"
+            >
+              New User ? Sign up now
+            </Button>
+          </div>
         </CardFooter>
       </Card>
     </div>
   );
 };
 
-export default SignupPage;
+export default LoginPage;

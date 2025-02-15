@@ -7,13 +7,13 @@ import {
 } from 'react-router-dom';
 import './index.css';
 import Header from './components/Header';
-import ActionArea from './components/ActionArea';
-import AllTasks from './components/AllTasks';
-import ImportantTasks from './components/ImportantTasks';
-import CompletedTasks from './components/CompletedTasks';
-import IncompleteTasks from './components/IncompleteTasks';
-import SignupPage from './components/Signup';
-import LoginPage from './components/Login';
+import ActionArea from './pages/ActionArea';
+import AllTasks from './pages/AllTasks';
+import ImportantTasks from './pages/ImportantTasks';
+import CompletedTasks from './pages/CompletedTasks';
+import IncompleteTasks from './pages/IncompleteTasks';
+import SignupPage from './pages/Signup';
+import LoginPage from './pages/Login';
 
 function Layout() {
   const location = useLocation();
@@ -41,7 +41,6 @@ function Layout() {
 
 function App() {
   return (
-
     <Router>
       <Layout />
     </Router>
