@@ -23,7 +23,6 @@
     "@types/axios": "^0.9.36",
     "@types/react-toastify": "^4.0.2",
     "axios": "^1.7.9",
-    "cheerio": "^1.0.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "firebase": "^11.3.1",

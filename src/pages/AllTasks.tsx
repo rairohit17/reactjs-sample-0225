@@ -46,7 +46,7 @@ export default function AllTasks() {
     <div className="px-[10px] overflow-hidden  overflow-y-auto no-scrollbar h-full">
       <ToastContainer/>
       <div className=" flex justify-between ">
-        <div className="text-center mb-[50px]">All Tasks</div>
+      <div className="text-center mb-[50px] font-rajdhani font-semibold text-2xl">All Tasks</div>
         <AddTask></AddTask>
       </div>
       <div className="flex gap-5 flex-wrap w-full">
