@@ -1,7 +1,7 @@
-import { Outlet, Link, useNavigate } from 'react-router-dom';
+import { Outlet, Link } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+
 
 export const options = [
   {
@@ -23,7 +23,6 @@ export const options = [
 ];
 
 export default function ActionArea() {
-  const navigate = useNavigate();
   const [imageUrlFinal, setImageUrlFinal] = useState<string>('');
   const authToken = localStorage.getItem('authToken');
   if (!authToken) window.location.href = '/login'; // log in again if no auth tOken

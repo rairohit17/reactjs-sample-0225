@@ -1,6 +1,5 @@
 import AddTask from '../components/AddTask';
 import Card from '../components/Card';
-import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import { getAllTasksOfUser } from '../utils/DatabaseOperations';
 import { Task } from '../utils/Task.schema';
@@ -49,6 +48,7 @@ export default function incompleteTasks() {
 
   return (
     <div className="px-[10px] overflow-hidden  overflow-y-auto no-scrollbar h-full ">
+      <ToastContainer/>
       <div className=" flex justify-between ">
         <div className="text-center mb-[50px]">Incomplete Tasks</div>
         <AddTask></AddTask>

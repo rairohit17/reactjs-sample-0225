@@ -2,8 +2,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
+  
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
 import { toast, ToastContainer } from 'react-toastify';
@@ -17,7 +16,6 @@ type Values = {
   id: string;
 };
 import { jwtDecode } from 'jwt-decode';
-import { MdOutlineBrowserUpdated } from 'react-icons/md';
 import { MdDeleteOutline } from 'react-icons/md';
 import { useEffect, useState } from 'react';
 import { FaStar } from 'react-icons/fa';
@@ -26,9 +24,7 @@ type Status = 'completed' | 'in_progress' | 'not_started';
 
 export default function Card({ todo, status, type, description, id }: Values) {
   let initial: boolean = type == 'important' ? true : false;
-  const todo1 = todo;
   const [isImportant, setIsImportant] = useState(initial);
-  const [presentStatus, setPresentStatus] = useState<Status>(status);
   const authToken = localStorage.getItem('authToken');
   if (!authToken) window.location.href = '/login'; // log in again if no auth tOken
   console.log('userEmail');
@@ -42,13 +38,13 @@ export default function Card({ todo, status, type, description, id }: Values) {
       newtype = 'not_important';
     }
 
-    updateTask(userEmail, id, { type: newtype }).then((res) => {
+    updateTask(userEmail, id, { type: newtype }).then(() => {
       type = newtype;
     });
   }, [isImportant]);
   function handleDelete() {
     try {
-      deleteTask(userEmail, id).then((res) => {
+      deleteTask(userEmail, id).then(() => {
         setTimeout(() => {
           window.location.reload();
         }, 1000);
@@ -70,8 +66,7 @@ export default function Card({ todo, status, type, description, id }: Values) {
   }
   function handleFunction(presentState: Status) {
     try {
-      status = presentStatus;
-      updateTask(userEmail, id, { status: presentState }).then((res) => {
+      updateTask(userEmail, id, { status: presentState }).then(() => {
         console.log('successfully updated');
         window.location.reload();
       });
@@ -83,6 +78,7 @@ export default function Card({ todo, status, type, description, id }: Values) {
 
   return (
     <div className="sm:w-[250px] sm:h-[250px] h-[180px] w-[150px] relative bg-slate-900 border  rounded-xl shadow-md">
+      <ToastContainer/>
       <div className="w-full font-bold sm:text-2xl text-[16px] text-center break-words text-gray-400 sm:pt-[30px] pt-[20px] px-[5px] font-mono">
         {todo}
       </div>
@@ -92,7 +88,7 @@ export default function Card({ todo, status, type, description, id }: Values) {
       <div className="flex absolute bottom-3">
         <DropdownMenu>
           <DropdownMenuTrigger className=" hover:opacity-65 font-orbitron rounded border-none sm:text-xl text-xs sm:mx-5 mx-[5px] px-1 text-gray-400">
-            {presentStatus
+            {status
               .replace(/_/g, ' ')
               .replace(/\b\w/g, (char) => char.toUpperCase())}
           </DropdownMenuTrigger>

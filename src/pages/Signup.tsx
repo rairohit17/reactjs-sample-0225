@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Card,
   CardHeader,
@@ -12,7 +11,7 @@ import { Button } from '../components/ui/button';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
-import { auth, db, firebaseApp } from '../firebase.config';
+import { auth } from '../firebase.config';
 import { firebaseErrorMessages } from '../utils/FirebaseErrors';
 const SignupPage = () => {
   const [email, setEmail] = useState('');

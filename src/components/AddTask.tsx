@@ -11,7 +11,7 @@ import {
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { IoIosAddCircleOutline } from 'react-icons/io';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import { createTask } from '../utils/DatabaseOperations';
@@ -41,7 +41,7 @@ export default function AddTask() {
     };
     try {
       createTask(newTask)
-        .then((res) => {
+        .then(() => {
           setTimeout(() => {
             window.location.reload();
           }, 1000);

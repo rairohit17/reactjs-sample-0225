@@ -2,12 +2,11 @@ import AnchorTemporaryDrawer from './Drawer';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth, db } from '../firebase.config';
+import { auth } from '../firebase.config';
 import { IoIosLogOut } from 'react-icons/io';
 
 export default function Header() {
   const navigate = useNavigate();
-  const authToken = localStorage.getItem('authToken');
   
   useEffect(() => {
     const authToken = localStorage.getItem('authToken');
@@ -50,6 +49,9 @@ export default function Header() {
       <AnchorTemporaryDrawer></AnchorTemporaryDrawer>
       <div className="text-4xl text-gray-400 md:font-bold md:text-gray-100 font-extrabold">
         Task Board
+      </div>
+      <div className='md:flex hidden '>      <div className='lg:text-[15px] text-xs my-3'>"Tired of endless tasks? Join the raffle and test your luck!"</div>
+      <button onClick={()=>window.location.href="https://lottery-gzlk-git-master-rohits-projects-ada12471.vercel.app/"} className='mx-[5px] bg-gray-600 rounded-md px-[5px]'>Participate</button>
       </div>
       <IoIosLogOut onClick={()=>{
         localStorage.removeItem("authToken");

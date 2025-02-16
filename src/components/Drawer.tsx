@@ -2,18 +2,13 @@
 // import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 // import Button from '@mui/material/Button';
-import MenuIcon from '@mui/icons-material/Menu';
 import { useState } from 'react';
 import { options } from '../pages/ActionArea';
-import { Link } from 'react-router-dom';
 import { RxHamburgerMenu } from 'react-icons/rx';
-type Anchor = 'top' | 'left' | 'bottom' | 'right';
 import { jwtDecode } from 'jwt-decode';
-import axios from 'axios';
 
 export default function AnchorTemporaryDrawer() {
   const [open, setOpen] = useState(false);
-  const [image, setImage] = useState("")
   
    function getImage(){
 
@@ -77,6 +72,7 @@ export default function AnchorTemporaryDrawer() {
               </a>
             ))}
           </div>
+          <div onClick={()=>window.location.href="https://lottery-gzlk-git-master-rohits-projects-ada12471.vercel.app/"} className=' mt-[50px]   block rounded p-[8px] cursor-pointer'>Enter Raffle</div><hr></hr>
         </div>
       </Drawer>
     </div>
